@@ -6,24 +6,35 @@ export async function POST(request: Request) {
   try {
     const currentUser = await getCurrentUser();
     const body = await request.json();
-    const { message, image, conversationId } = body;
+    const { body: messageBody, image, conversationId } = body;
 
     if (!currentUser?.id || !currentUser?.email) {
+      console.error("Unauthorized request: No current user found");
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    // Vérifiez si le corps du message est présent
+    if (!messageBody && !image) {
+      console.error("Bad Request: Missing message body or image in request");
+      return new NextResponse("Bad Request: Missing message body or image", {
+        status: 400,
+      });
+    }
+
+    // Créez le nouveau message avec Prisma
     const newMessage = await prisma.message.create({
       data: {
-        body: message,
+        body: messageBody,
         image: image,
+        createdAt: new Date(),
         conversation: { connect: { id: conversationId } },
         sender: { connect: { id: currentUser.id } },
-        senderId: currentUser.id,
         seen: { connect: { id: currentUser.id } },
       },
       include: { seen: true, sender: true },
     });
 
+    // Mettez à jour la conversation pour inclure le nouveau message
     const updateConversation = await prisma.conversation.update({
       where: { id: conversationId },
       data: {
@@ -34,7 +45,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(newMessage);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating message:", error);
     return new NextResponse("Internal Error", { status: 500 });
   }

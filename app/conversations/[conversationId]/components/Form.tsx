@@ -18,7 +18,12 @@ const Form = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setValue("message", "", { shouldValidate: true });
     try {
-      await axios.post("/api/messages", { ...data, conversationId });
+      const { message, image } = data;
+      await axios.post("/api/messages", {
+        body: message,
+        image,
+        conversationId,
+      });
     } catch (error) {
       console.error("Failed to send message", error);
     }
