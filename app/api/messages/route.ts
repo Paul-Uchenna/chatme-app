@@ -18,6 +18,7 @@ export async function POST(request: Request) {
         image: image,
         conversation: { connect: { id: conversationId } },
         sender: { connect: { id: currentUser.id } },
+        senderId: currentUser.id,
         seen: { connect: { id: currentUser.id } },
       },
       include: { seen: true, sender: true },
