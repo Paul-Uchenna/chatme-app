@@ -3,9 +3,8 @@
 import UseConversation from "@/app/Hooks/UseConversation";
 import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { HiPhoto } from "react-icons/hi2";
+import { HiPhoto, HiPaperAirplane } from "react-icons/hi2"; // Correction de l'importation
 import MessageInput from "./MessageInput";
-import { HiPaperAirplane } from "react-icons/hi2";
 
 const Form = () => {
   const { conversationId } = UseConversation();
@@ -16,9 +15,13 @@ const Form = () => {
     formState: { errors },
   } = useForm<FieldValues>({ defaultValues: { message: "" } });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setValue("message", "", { shouldValidate: true });
-    axios.post("/api/messages", { ...data, conversationId });
+    try {
+      await axios.post("/api/messages", { ...data, conversationId });
+    } catch (error) {
+      console.error("Failed to send message", error);
+    }
   };
 
   return (
