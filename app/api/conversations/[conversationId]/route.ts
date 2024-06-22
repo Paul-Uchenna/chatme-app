@@ -52,12 +52,12 @@ export async function DELETE(
       }
     });
 
-    if (deleteConversation.count === 0) {
-      return new NextResponse(
-        "Forbidden: You do not have permission to delete this conversation",
-        { status: 403 }
-      );
-    }
+    // if (deleteConversation.count === 0) {
+    //   return new NextResponse(
+    //     "Forbidden: You do not have permission to delete this conversation",
+    //     { status: 403 }
+    //   );
+    // }
 
     return NextResponse.json(deleteConversation);
   } catch (error: any) {

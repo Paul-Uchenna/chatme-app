@@ -8,8 +8,8 @@ import ActiveStatus from "./Components/ActiveStatus";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ViberChat ",
-  description: "ViberChat app",
+  title: "ChatMe ",
+  description: "Chatme app",
 };
 
 export default function RootLayout({

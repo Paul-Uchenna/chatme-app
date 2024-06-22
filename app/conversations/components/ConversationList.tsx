@@ -62,7 +62,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
       );
     };
 
-    const removeHanler = (conversation: FullConversationType) => {
+    const removeHandler = (conversation: FullConversationType) => {
       setitems((current) => {
         return [
           ...current.filter((convo) => {
@@ -78,13 +78,13 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
     pusherClient.bind("conversation:new", newHandler);
     pusherClient.bind("conversation:update", updateHandler);
-    pusherClient.bind("conversation:remove", removeHanler);
+    pusherClient.bind("conversation:remove", removeHandler);
 
     return () => {
       pusherClient.unsubscribe(pusherKey);
       pusherClient.unbind("conversation:new", newHandler);
       pusherClient.unbind("conversation:update", updateHandler);
-      pusherClient.unbind("conversation:remove", removeHanler);
+      pusherClient.unbind("conversation:remove", removeHandler);
     };
   }, [pusherKey, conversationId, router]);
 
