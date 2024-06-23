@@ -1,12 +1,12 @@
 import Image from "next/image";
 import AuthForm from "./components/AuthForm";
 
-export default function Home() {
+function Home() {
   return (
     <div className="flex flex-col lg:flex-row h-full min-h-screen">
       {/* Left section */}
       <div className="flex flex-1 flex-col justify-center items-center bg-gray-100 p-4 lg:p-8">
-        <div className="relative w-full h-[160px] lg:h-[200px]">
+        <div className="relative w-full h-[150px] lg:h-[160px]">
           <Image
             src="/images/logo.png"
             alt="logo"
@@ -35,3 +35,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
