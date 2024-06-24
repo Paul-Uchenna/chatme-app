@@ -20,7 +20,7 @@ const MobileFooter: React.FC<MobileFooterProps> = ({ currentUser }) => {
 
   return (
     <div className="fixed justify-between w-full bottom-0 z-40 flex items-center bg-white border-t-[1px] lg:hidden">
-      <div className="p-2">
+      <div className="px-4">
         <Avatar user={currentUser} />
       </div>
       {routes.map((route) => (
