@@ -15,8 +15,7 @@ export default async function handler(
       .json({ message: "Unauthorized: No session or user email found" });
   }
 
-  const socketId = request.body.socket_id;
-  const channel = request.body.channel_name;
+  const { socket_id: socketId, channel_name: channel } = request.body;
   const data = { user_id: session.user.email };
 
   try {

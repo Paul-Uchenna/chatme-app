@@ -4,7 +4,6 @@ import useRoutes from "@/app/Hooks/useRoutes";
 import { useState } from "react";
 import DesktopItem from "./DesktopItem";
 import { User } from "@prisma/client";
-import { tree } from "next/dist/build/templates/app-page";
 import Avatar from "../Avatar";
 import SettingsModal from "./SettingsModal";
 
@@ -12,7 +11,7 @@ interface DestopSidebarProps {
   currentUser: User;
 }
 
-const DestopSidebar: React.FC<DestopSidebarProps> = ({ currentUser }) => {
+const DesktopSidebar: React.FC<DestopSidebarProps> = ({ currentUser }) => {
   const routes = useRoutes();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,4 +51,4 @@ const DestopSidebar: React.FC<DestopSidebarProps> = ({ currentUser }) => {
   );
 };
 
-export default DestopSidebar;
+export default DesktopSidebar;
