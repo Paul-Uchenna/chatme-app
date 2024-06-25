@@ -7,19 +7,20 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  const session = await getServerSession(request, response, authOptions);
-
-  if (!session?.user?.email) {
-    return response
-      .status(401)
-      .json({ message: "Unauthorized: No session or user email found" });
-  }
-
-  const { socket_id: socketId, channel_name: channel } = request.body;
-  const data = { user_id: session.user.email };
-
   try {
+    const session = await getServerSession(request, response, authOptions);
+
+    if (!session?.user?.email) {
+      return response
+        .status(401)
+        .json({ message: "Unauthorized: No session or user email found" });
+    }
+
+    const { socket_id: socketId, channel_name: channel } = request.body;
+    const data = { user_id: session.user.email };
+
     const authResponse = pusherServer.authorizeChannel(socketId, channel, data);
+
     return response.send(authResponse);
   } catch (error: any) {
     return response.status(500).json({
